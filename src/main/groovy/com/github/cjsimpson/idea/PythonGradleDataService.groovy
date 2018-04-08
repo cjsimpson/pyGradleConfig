@@ -81,7 +81,7 @@ class PythonGradleDataService extends AbstractProjectDataService<PythonModelData
             Library sdkLibrary = LibraryTablesRegistrar.getInstance().getLibraryTable().getLibraryByName(sdk + " interpreter library")
             if (sdkLibrary == null || pySdk == null) {
                 Notification notification = new Notification("Python Gradle Plugin",
-                        "Python SDK Not Found", "Could not find Python SDK with the name <" + sdk +">. Double check IntelliJ SDK settings and build.gradle settings.",
+                        "Python SDK Not Found", "Error configuring module <" + moduleDataNode.getData().getExternalName() + "> could not find Python SDK <" + sdk +">. Double check IntelliJ SDK settings and build.gradle settings.",
                         NotificationType.WARNING)
                 Notifications.Bus.notify(notification)
             }
