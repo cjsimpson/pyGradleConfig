@@ -21,31 +21,47 @@ import com.intellij.openapi.externalSystem.model.Key
 import com.intellij.openapi.externalSystem.model.ProjectKeys
 import com.intellij.openapi.externalSystem.model.ProjectSystemId
 import com.intellij.openapi.externalSystem.model.project.AbstractExternalEntityData
-
 import org.jetbrains.annotations.NotNull
 
-class PythonModelData extends AbstractExternalEntityData {
+class PythonSdkModelData extends AbstractExternalEntityData {
     private static final long serialVersionUID = 1L
     private static final int PROCESSING_AFTER_BUILTIN_SERVICES
 
     @NotNull
-    public static final Key<PythonModelData> KEY
-    private String skd
+    public static final Key<PythonSdkModelData> KEY
+    private String pythonExec
+    private String name
+    private List<String> additionalPaths = new ArrayList<>()
 
-    String getSkd() {
-        return skd
+    String getPythonExec() {
+        return pythonExec
+    }
+    void setPythonExec(String pythonExec) {
+        this.pythonExec = pythonExec
     }
 
-    void setSkd(String skd) {
-        this.skd = skd
+    String getName() {
+        return name
     }
 
-    PythonModelData(@NotNull ProjectSystemId owner) {
+    void setName(String name) {
+        this.name = name
+    }
+    List<String> getAdditionalPaths() {
+        return additionalPaths
+    }
+
+    void setAdditionalPaths(List<String> additionalPaths) {
+        this.additionalPaths = additionalPaths
+    }
+
+
+    PythonSdkModelData(@NotNull ProjectSystemId owner) {
         super(owner)
     }
 
     static {
-        PROCESSING_AFTER_BUILTIN_SERVICES = ProjectKeys.TASK.getProcessingWeight() + 2
-        KEY = Key.create(PythonModelData.class, PROCESSING_AFTER_BUILTIN_SERVICES)
+        PROCESSING_AFTER_BUILTIN_SERVICES = ProjectKeys.TASK.getProcessingWeight() + 1
+        KEY = Key.create(PythonSdkModelData.class, PROCESSING_AFTER_BUILTIN_SERVICES)
     }
 }

@@ -26,10 +26,12 @@
 
     <extensions defaultExtensionNs="org.jetbrains.plugins.gradle">
         <projectResolve implementation="com.github.cjsimpson.idea.PythonGradleProjectResolverExtension"/>
+        <projectResolve implementation="com.github.cjsimpson.idea.PythonSdkGradleProjectResolverExtension"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
         <externalProjectDataService implementation="com.github.cjsimpson.idea.PythonGradleDataService"/>
+        <externalProjectDataService implementation="com.github.cjsimpson.idea.PythonSdkGradleDataService"/>
     </extensions>
 
 </idea-plugin>

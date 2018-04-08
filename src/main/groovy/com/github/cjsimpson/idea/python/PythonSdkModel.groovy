@@ -15,25 +15,12 @@
  *
  */
 
-buildscript {
-    dependencies {
-        classpath fileTree(dir: '../build/libs', include: ['*.jar'])
-    }
-}
+package com.github.cjsimpson.idea.python
 
-allprojects {
+interface PythonSdkModel extends Serializable {
 
-}
+    String getPythonExec()
+    String getName()
+    List<String> getAdditionalPaths()
 
-apply plugin: 'com.github.cjsimpson.python'
-apply plugin: 'java'
-
-pythonSdk {
-    pythonExec = '/usr/local/bin/python3'
-    name = 'py_test'
-    additionalPaths = ['/Users/cjs/dev/pyGradleConfig']
-}
-
-python {
-    sdk = 'py_test'
 }
