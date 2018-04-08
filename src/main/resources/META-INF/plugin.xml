@@ -1,0 +1,20 @@
+<idea-plugin>
+    <id>pyGradleConfig.pyGradleConfig</id>
+    <name>Python Gradle</name>
+    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <description>Support for Configuring Python via Gradle</description>
+    <vendor>boxterra</vendor>
+
+
+    <depends>org.jetbrains.plugins.gradle</depends>
+    <depends>com.intellij.modules.python</depends>
+
+    <extensions defaultExtensionNs="org.jetbrains.plugins.gradle">
+        <projectResolve implementation="com.boxterra.idea.PythonGradleProjectResolverExtension"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <externalProjectDataService implementation="com.boxterra.idea.PythonGradleDataService"/>
+    </extensions>
+
+</idea-plugin>

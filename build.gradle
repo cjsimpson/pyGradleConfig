@@ -1,0 +1,36 @@
+plugins {
+    id "org.jetbrains.intellij" version "0.3.1"
+}
+
+group 'pyGradleConfig'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+intellij {
+    version = '2018.1'
+    plugins += ['gradle', 'PythonCore:2018.1.181.4203.550']
+
+}
+patchPluginXml {
+    changeNotes """
+      testing"""
+}
+
+task gradlePlugin(dependsOn: jar) {
+    doLast {
+        copy {
+            from 'build/libs/'
+            into '/Users/cjs/dev/py_gradle_test/libs'
+        }
+    }
+}
+
+prepareSandbox.dependsOn gradlePlugin
