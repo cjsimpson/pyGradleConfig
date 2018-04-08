@@ -18,7 +18,7 @@
 <idea-plugin>
     <id>pyGradleConfig.pyGradleConfig</id>
     <name>Python Gradle</name>
-    <vendor email="cjsimpson@gmail.com" url="http://www.github.com/cjsimpson">Chris Smpson</vendor>
+    <vendor email="cjsimpson@gmail.com" url="http://www.github.com/cjsimpson">Chris Simpson</vendor>
     <description>Support for Configuring Python via Gradle</description>
 
     <depends>org.jetbrains.plugins.gradle</depends>

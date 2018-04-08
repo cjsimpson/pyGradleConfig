@@ -1,6 +1,6 @@
 # Python Gradle Plugin
 
-IntelliJ and Gradle pluings to allow configuring Python in IntelliJ projects via Gradle.
+IntelliJ and Gradle plugins to allow configuring Python in IntelliJ projects via Gradle.
 
 
 #### Gradle Plugin
