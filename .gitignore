@@ -1,7 +1,8 @@
-.gradle
-.idea
+**/.gradle
+**/.idea
 *.iml
-gradlew
-out
-build
-gradle
+*.bat
+**/gradlew
+**/out
+**/build
+**/gradle
