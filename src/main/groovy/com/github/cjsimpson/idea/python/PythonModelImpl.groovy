@@ -15,27 +15,22 @@
  *
  */
 
-plugins {
-    id "org.jetbrains.intellij" version "0.3.1"
-}
+package com.github.cjsimpson.idea.python
 
-group = 'pyGradleConfig'
-version = '1.0-SNAPSHOT'
+class PythonModelImpl implements PythonModel {
 
-apply plugin: 'groovy'
+    private String sdk
 
-sourceCompatibility = 1.8
+    PythonModelImpl() {
+    }
 
-repositories {
-    mavenCentral()
-}
+    @Override
+    String getSdk() {
+        return sdk
+    }
 
-intellij {
-    version = '2018.1'
-    plugins += ['gradle', 'PythonCore:2018.1.181.4203.550']
+    void setSdk(String sdk) {
+        this.sdk = sdk
+    }
 
-}
-patchPluginXml {
-    changeNotes """
-      testing"""
 }

@@ -1,0 +1,12 @@
+buildscript {
+    dependencies {
+        classpath fileTree(dir: '../libs', include: ['*.jar'])
+    }
+}
+
+apply plugin: 'com.github.cjsimpson.python'
+apply plugin: 'java'
+
+python {
+    sdk = 'py_test2'
+}

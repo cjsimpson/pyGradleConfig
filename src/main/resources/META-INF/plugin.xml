@@ -1,20 +1,35 @@
+<!--
+  ~ Copyright (c) 2018 Chris Simpson
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
 <idea-plugin>
     <id>pyGradleConfig.pyGradleConfig</id>
     <name>Python Gradle</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <vendor email="cjsimpson@gmail.com" url="http://www.github.com/cjsimpson">Chris Smpson</vendor>
     <description>Support for Configuring Python via Gradle</description>
-    <vendor>boxterra</vendor>
-
 
     <depends>org.jetbrains.plugins.gradle</depends>
     <depends>com.intellij.modules.python</depends>
 
     <extensions defaultExtensionNs="org.jetbrains.plugins.gradle">
-        <projectResolve implementation="com.boxterra.idea.PythonGradleProjectResolverExtension"/>
+        <projectResolve implementation="com.github.cjsimpson.idea.PythonGradleProjectResolverExtension"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <externalProjectDataService implementation="com.boxterra.idea.PythonGradleDataService"/>
+        <externalProjectDataService implementation="com.github.cjsimpson.idea.PythonGradleDataService"/>
     </extensions>
 
 </idea-plugin>

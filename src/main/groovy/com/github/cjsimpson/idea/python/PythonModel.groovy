@@ -15,27 +15,12 @@
  *
  */
 
-plugins {
-    id "org.jetbrains.intellij" version "0.3.1"
-}
+package com.github.cjsimpson.idea.python
 
-group = 'pyGradleConfig'
-version = '1.0-SNAPSHOT'
+import java.io.Serializable
 
-apply plugin: 'groovy'
+interface PythonModel extends Serializable {
 
-sourceCompatibility = 1.8
+    String getSdk()
 
-repositories {
-    mavenCentral()
-}
-
-intellij {
-    version = '2018.1'
-    plugins += ['gradle', 'PythonCore:2018.1.181.4203.550']
-
-}
-patchPluginXml {
-    changeNotes """
-      testing"""
 }
