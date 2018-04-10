@@ -1,2 +1,2 @@
-com.github.cjsimpson.idea.model.PythonSdkModelBuilderImpl
-com.github.cjsimpson.idea.model.PythonModelBuilderImpl
+com.boxterra.pyfusion.idea.model.PythonSdkModelBuilderImpl
+com.boxterra.pyfusion.idea.model.PythonModelBuilderImpl

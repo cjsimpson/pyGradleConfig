@@ -21,7 +21,7 @@ buildscript {
     }
 }
 
-apply plugin: 'com.github.cjsimpson.python'
+apply plugin: 'com.boxterra.pyfusion'
 apply plugin: 'java'
 
 python {

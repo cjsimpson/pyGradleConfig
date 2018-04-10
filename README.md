@@ -1,6 +1,6 @@
-# Python Gradle Plugin
+# PyFusion
 
-IntelliJ and Gradle plugins to allow configuring Python in IntelliJ projects via Gradle.
+PyFusion is an IntelliJ and Gradle plugin which work together to allow configuring Python projects in IntelliJ projects via Gradle.
 
 
 #### Gradle Plugin

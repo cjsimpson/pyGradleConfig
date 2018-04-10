@@ -16,8 +16,8 @@
   -->
 
 <idea-plugin>
-    <id>pyGradleConfig.pyGradleConfig</id>
-    <name>Python Gradle</name>
+    <id>PyFusion</id>
+    <name>PyFusion</name>
     <vendor email="cjsimpson@gmail.com" url="http://www.github.com/cjsimpson">Chris Simpson</vendor>
     <description>Support for Configuring Python via Gradle</description>
 
@@ -25,13 +25,13 @@
     <depends>com.intellij.modules.python</depends>
 
     <extensions defaultExtensionNs="org.jetbrains.plugins.gradle">
-        <projectResolve implementation="com.github.cjsimpson.idea.PythonGradleProjectResolverExtension"/>
-        <projectResolve implementation="com.github.cjsimpson.idea.PythonSdkGradleProjectResolverExtension"/>
+        <projectResolve implementation="com.boxterra.pyfusion.idea.PythonGradleProjectResolverExtension"/>
+        <projectResolve implementation="com.boxterra.pyfusion.idea.PythonSdkGradleProjectResolverExtension"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <externalProjectDataService implementation="com.github.cjsimpson.idea.PythonGradleDataService"/>
-        <externalProjectDataService implementation="com.github.cjsimpson.idea.PythonSdkGradleDataService"/>
+        <externalProjectDataService implementation="com.boxterra.pyfusion.idea.PythonGradleDataService"/>
+        <externalProjectDataService implementation="com.boxterra.pyfusion.idea.PythonSdkGradleDataService"/>
     </extensions>
 
 </idea-plugin>
