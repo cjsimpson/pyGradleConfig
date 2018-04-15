@@ -3,6 +3,6 @@
 *.iml
 *.bat
 **/gradlew
-**/out
-**/build
-**/gradle
+**/out/
+**/build/
+./gradle
