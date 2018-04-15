@@ -19,8 +19,8 @@ plugins {
     id "org.jetbrains.intellij" version "0.3.1"
 }
 
-group = 'pyGradleConfig'
-version = '1.0-SNAPSHOT'
+group = 'pyFusion'
+version = '2018.04.15'
 
 apply plugin: 'groovy'
 
@@ -37,5 +37,5 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-      testing"""
+      Initial release"""
 }

@@ -60,7 +60,7 @@ class PythonGradleProjectResolverExtension extends AbstractProjectResolverExtens
 
 
     @NotNull
-    private static Ωcreate(@NotNull PythonModel pythonModel) {
+    private static create(@NotNull PythonModel pythonModel) {
         PythonModelData pythonModelData = new PythonModelData(GradleConstants.SYSTEM_ID)
         pythonModelData.setSkd(pythonModel.getSdk())
         return pythonModelData

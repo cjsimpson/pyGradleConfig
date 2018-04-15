@@ -21,7 +21,7 @@ Reads configuration information from the gradle plugin and configures Intellij
 
 build.gradle
 ```gradle
-apply plugin: 'python'
+apply plugin: 'com.boxterra.python'
 
 pythonSdk {
     pythonExec = '/usr/bin/python3'
