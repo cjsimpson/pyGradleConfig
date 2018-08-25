@@ -6,12 +6,14 @@ PyFusion is an IntelliJ and Gradle plugin which work together to allow configuri
 #### Gradle Plugin
 Sets attributes about Python.
 Currently supported options:
-* Python Parameters
-  * **sdk** - The name of an _existing_ Python SDK. The SDK can be one created by this plugin, or one created by other means.
-* PythonSdk Parameters
+* PythonSdk Parameters - Use to create Python SDKs in IntelliJ
   * **pythonExec** - Path to the python executable (e.g /usr/bin/python3)
   * **name** - (Optional) A custom name to use for this interpreter
   * **additionalPaths** - A list of additional paths to include 
+
+
+* Python Parameters - Use to associate a gradle project with an IntelliJ SDK
+  * **sdk** - The name of an _existing_ Python SDK. The SDK can be one created by this plugin, or one created by other means.
 
 #### IntelliJ Plugin
 Reads configuration information from the gradle plugin and configures Intellij

@@ -76,14 +76,17 @@ class PythonGradleDataService extends AbstractProjectDataService<PythonModelData
             nodesToUpdate.add(moduleDataNode)
 
             String sdk = pythonModelData.getSkd()
-            Sdk pySdk = PythonSdkType.findSdkByKey(sdk)
-            List<Sdk> allSdks = PythonSdkType.getAllSdks()
-            Library sdkLibrary = LibraryTablesRegistrar.getInstance().getLibraryTable().getLibraryByName(sdk + " interpreter library")
-            if (sdkLibrary == null || pySdk == null) {
-                Notification notification = new Notification("Python Gradle Plugin",
-                        "Python SDK Not Found", "Error configuring module <" + moduleDataNode.getData().getExternalName() + "> could not find Python SDK <" + sdk +">. Double check IntelliJ SDK settings and build.gradle settings.",
-                        NotificationType.WARNING)
-                Notifications.Bus.notify(notification)
+            Library sdkLibrary
+            Sdk pySdk
+            if (sdk != null) {
+                pySdk = PythonSdkType.findSdkByKey(sdk)
+                sdkLibrary = LibraryTablesRegistrar.getInstance().getLibraryTable().getLibraryByName(sdk + " interpreter library")
+                if (sdkLibrary == null || pySdk == null) {
+                    Notification notification = new Notification("Python Gradle Plugin",
+                            "Python SDK Not Found", "Error configuring module <" + moduleDataNode.getData().getExternalName() + "> could not find Python SDK <" + sdk +">. Double check IntelliJ SDK settings and build.gradle settings.",
+                            NotificationType.WARNING)
+                    Notifications.Bus.notify(notification)
+                }
             }
 
             for (DataNode<ModuleData> node : nodesToUpdate) {
@@ -91,7 +94,7 @@ class PythonGradleDataService extends AbstractProjectDataService<PythonModelData
 
                 // Remove any existing Python SDK library dependencies
                 List<Library> libraries = Arrays.asList(modelsProvider.getModifiableRootModel(ideModule).getModuleLibraryTable().getLibraries())
-                for (Sdk s : allSdks) {
+                for (Sdk s : PythonSdkType.getAllSdks()) {
                     Library lib = LibraryTablesRegistrar.getInstance().getLibraryTable().getLibraryByName(s.getName() + " interpreter library")
                     if (lib != null && libraries.contains(lib)) {
                         modelsProvider.getModifiableRootModel(ideModule).getModuleLibraryTable().removeLibrary(lib)
