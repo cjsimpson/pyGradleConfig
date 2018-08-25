@@ -73,8 +73,8 @@ class PythonSdkGradleDataService extends AbstractProjectDataService<PythonSdkMod
                     }
                     for(String additionalPath in pythonSdkModelData.getAdditionalPaths()) {
                         sdkModifier.addRoot(LocalFileSystem.getInstance().findFileByIoFile(new File(additionalPath)), OrderRootType.CLASSES)
-                    sdkModifier.commitChanges()
                     }
+                    sdkModifier.commitChanges()
                 }
             })
         }
