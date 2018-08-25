@@ -30,6 +30,7 @@ import com.intellij.openapi.projectRoots.SdkModificator
 import com.intellij.openapi.projectRoots.impl.SdkConfigurationUtil
 import com.intellij.openapi.roots.OrderRootType
 import com.intellij.openapi.vfs.LocalFileSystem
+import com.intellij.openapi.vfs.VirtualFile
 import com.jetbrains.python.sdk.PythonSdkType
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
@@ -58,6 +59,13 @@ class PythonSdkGradleDataService extends AbstractProjectDataService<PythonSdkMod
 
             for(sdk in PythonSdkType.allSdks) {
                 if (sdk.homePath == pythonSdkModelData.pythonExec && sdk.name == pythonSdkModelData.name) {
+                    // check for paths missing from existing SDK
+                    def rootFiles = sdk.getRootProvider().getFiles(OrderRootType.CLASSES)
+                    for (path in pythonSdkModelData.additionalPaths) {
+                        if (!rootFiles.contains(LocalFileSystem.getInstance().findFileByIoFile(new File(path)))) {
+                            return // there is at least one additionPath not included in the existing SDK
+                        }
+                    }
                     return
                 }
             }
