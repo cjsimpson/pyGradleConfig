@@ -16,11 +16,11 @@
  */
 
 plugins {
-    id "org.jetbrains.intellij" version "0.3.4"
+    id "org.jetbrains.intellij" version "0.3.7"
 }
 
 group = 'pyFusion'
-version = '2018.08.24'
+version = '2018.08.25'
 
 apply plugin: 'groovy'
 
@@ -38,11 +38,11 @@ sourceSets {
 }
 
 intellij {
-    version = '2018.1'
-    plugins += ['gradle', 'PythonCore:2018.1.181.4203.550']
-
+    version = '2018.2'
+    plugins += ['gradle', 'PythonCore:2018.2.182.2757.3']
 }
 patchPluginXml {
     changeNotes """
-      Fixed null pointer issues"""
+      2018-08-25: Dependency fixes, renaming\n
+      """
 }

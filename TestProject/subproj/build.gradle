@@ -24,6 +24,8 @@ buildscript {
 apply plugin: 'com.boxterra.pyfusion'
 apply plugin: 'java'
 
-python {
-    sdk = 'py_test2'
+pythonSdk {
+    pythonExec = '/usr/local/bin/python3'
+    name = 'py_test2'
+    additionalPaths = ['/Users/cjs/dev/']
 }

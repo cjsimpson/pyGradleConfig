@@ -18,8 +18,9 @@
 <idea-plugin>
     <id>PyFusion</id>
     <name>PyFusion</name>
-    <vendor email="See github" url="http://www.github.com/cjsimpson">Chris Simpson</vendor>
+    <vendor email="See github" url="https://github.com/cjsimpson/pyGradleConfig">Chris Simpson</vendor>
     <description>Support for Configuring Python via Gradle</description>
+    <idea-version since-build="2018.1"/>
 
     <depends>org.jetbrains.plugins.gradle</depends>
     <depends>com.intellij.modules.python</depends>

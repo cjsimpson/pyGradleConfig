@@ -31,7 +31,7 @@ apply plugin: 'java'
 pythonSdk {
     pythonExec = '/usr/local/bin/python3'
     name = 'py_test'
-    additionalPaths = ['/Users/cjs/dev/pyGradleConfig']
+    additionalPaths = ['/some/path/pyFusion']
 }
 
 python {
