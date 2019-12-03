@@ -18,6 +18,9 @@
 package com.boxterra.pyfusion.idea
 
 import com.boxterra.pyfusion.idea.model.data.PythonSdkModelData
+import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
+import com.intellij.notification.Notifications
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.WriteAction
 import com.intellij.openapi.externalSystem.model.DataNode
@@ -35,6 +38,7 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.jetbrains.python.sdk.PythonSdkType
 import com.jetbrains.python.sdk.PythonSdkUtil
+import org.apache.commons.collections.map.HashedMap
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 
@@ -57,43 +61,58 @@ class PythonSdkGradleDataService extends AbstractProjectDataService<PythonSdkMod
         }
 
         for (DataNode<PythonSdkModelData> pythonSdkDataNode : toImport) {
-
             final PythonSdkModelData pythonSdkModelData = pythonSdkDataNode.getData()
+            boolean sdkUpToDate = false
+            Sdk pythonSdk
 
             for(sdk in PythonSdkUtil.allSdks) {
                 if (sdk.homePath == pythonSdkModelData.pythonExec && sdk.name == pythonSdkModelData.name) {
                     // check for paths missing from existing SDK
                     def rootFiles = sdk.getRootProvider().getFiles(OrderRootType.CLASSES)
                     for (path in pythonSdkModelData.additionalPaths) {
-                        if (!rootFiles.contains(LocalFileSystem.getInstance().findFileByIoFile(new File(path)))) {
-                            return // there is at least one additionPath not included in the existing SDK
+                        File sdkPath = new File(path)
+                        if (sdkPath.exists() && !rootFiles.contains(LocalFileSystem.getInstance().findFileByIoFile(sdkPath))) {
+                            sdkUpToDate = false // there is at least one additionPath not included in the existing SDK
+                            break
                         }
                     }
-                    return
+                    pythonSdk = sdk
+                    break
                 }
+            }
+            if (pythonSdk != null && sdkUpToDate) {
+                continue
             }
 
             // IntelliJ only allows updating SDKs from the event thread
             ApplicationManager.getApplication().invokeAndWait(new Runnable() {
                 @Override
                 void run() {
-                    if (new File(pythonSdkModelData.pythonExec).exists()) {
-                        Sdk pythonSdk = SdkConfigurationUtil.createAndAddSDK(pythonSdkModelData.pythonExec, PythonSdkType.getInstance())
+                    if (pythonSdk == null) {
+                        if (new File(pythonSdkModelData.pythonExec).exists()) {
+                            pythonSdk = SdkConfigurationUtil.createAndAddSDK(pythonSdkModelData.pythonExec, PythonSdkType.getInstance())
+                        }
+                        else {
+                            Notification notification = new Notification("Python Gradle Plugin",
+                                    "Python SDK Executable Not Found",
+                                            "Error configuring module <" + moduleDataNode.getData().getExternalName() + ">"
+                                            + " could not find Python SDK Executable <" + pythonSdkModelData.pythonExec +">."
+                                            + "  Double check IntelliJ SDK settings and build.gradle settings.",
+                                    NotificationType.WARNING)
+                            Notifications.Bus.notify(notification)
+                        }
+                    }
 
-                        SdkModificator sdkModifier = pythonSdk.getSdkModificator()
-                        if (pythonSdkModelData.name != null) {
-                            sdkModifier.setName(pythonSdkModelData.name)
-                        }
-                        for (String additionalPath in pythonSdkModelData.getAdditionalPaths()) {
-                            if (new File(additionalPath).exists()) {
-                                sdkModifier.addRoot(LocalFileSystem.getInstance().findFileByIoFile(new File(additionalPath)), OrderRootType.CLASSES)
-                            }
-                        }
-                        sdkModifier.commitChanges()
+                    SdkModificator sdkModifier = pythonSdk.getSdkModificator()
+                    if (pythonSdkModelData.name != null) {
+                        sdkModifier.setName(pythonSdkModelData.name)
                     }
-                    else {
-                        //TODO: Log something?
+                    for (String additionalPath in pythonSdkModelData.getAdditionalPaths()) {
+                        if (new File(additionalPath).exists()) {
+                            sdkModifier.addRoot(LocalFileSystem.getInstance().findFileByIoFile(new File(additionalPath)), OrderRootType.CLASSES)
+                        }
                     }
+                    sdkModifier.commitChanges()
                 }
             })
         }
