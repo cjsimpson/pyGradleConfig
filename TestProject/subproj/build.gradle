@@ -25,7 +25,11 @@ apply plugin: 'com.boxterra.pyfusion'
 apply plugin: 'java'
 
 pythonSdk {
-    pythonExec = '/usr/local/bin/python3'
+    pythonExec = '/usr/bin/python2'
     name = 'py_test2'
     additionalPaths = ['/Users/cjs/dev/']
+}
+
+python {
+    sdk = 'py_test2'
 }

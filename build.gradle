@@ -16,7 +16,7 @@
  */
 
 plugins {
-    id "org.jetbrains.intellij" version "0.3.7"
+    id "org.jetbrains.intellij" version "0.4.14"
 }
 
 group = 'pyFusion'
@@ -38,8 +38,8 @@ sourceSets {
 }
 
 intellij {
-    version = '2018.2'
-    plugins += ['gradle', 'PythonCore:2018.2.182.2757.3']
+    version = '2019.3'
+    plugins += ['gradle', 'PythonCore:193.5233.102']
 }
 patchPluginXml {
     changeNotes """

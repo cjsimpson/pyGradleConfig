@@ -19,12 +19,14 @@ package com.boxterra.pyfusion.idea
 
 import com.boxterra.pyfusion.idea.model.data.PythonSdkModelData
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.WriteAction
 import com.intellij.openapi.externalSystem.model.DataNode
 import com.intellij.openapi.externalSystem.model.Key
 import com.intellij.openapi.externalSystem.model.project.ProjectData
 import com.intellij.openapi.externalSystem.service.project.IdeModifiableModelsProvider
 import com.intellij.openapi.externalSystem.service.project.manage.AbstractProjectDataService
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.projectRoots.ProjectJdkTable
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.projectRoots.SdkModificator
 import com.intellij.openapi.projectRoots.impl.SdkConfigurationUtil
@@ -32,6 +34,7 @@ import com.intellij.openapi.roots.OrderRootType
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.jetbrains.python.sdk.PythonSdkType
+import com.jetbrains.python.sdk.PythonSdkUtil
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 
@@ -57,7 +60,7 @@ class PythonSdkGradleDataService extends AbstractProjectDataService<PythonSdkMod
 
             final PythonSdkModelData pythonSdkModelData = pythonSdkDataNode.getData()
 
-            for(sdk in PythonSdkType.allSdks) {
+            for(sdk in PythonSdkUtil.allSdks) {
                 if (sdk.homePath == pythonSdkModelData.pythonExec && sdk.name == pythonSdkModelData.name) {
                     // check for paths missing from existing SDK
                     def rootFiles = sdk.getRootProvider().getFiles(OrderRootType.CLASSES)
@@ -74,15 +77,23 @@ class PythonSdkGradleDataService extends AbstractProjectDataService<PythonSdkMod
             ApplicationManager.getApplication().invokeAndWait(new Runnable() {
                 @Override
                 void run() {
-                    Sdk pythonSdk = SdkConfigurationUtil.createAndAddSDK(pythonSdkModelData.pythonExec, PythonSdkType.getInstance())
-                    SdkModificator sdkModifier = pythonSdk.getSdkModificator()
-                    if(pythonSdkModelData.name != null) {
-                        sdkModifier.setName(pythonSdkModelData.name)
+                    if (new File(pythonSdkModelData.pythonExec).exists()) {
+                        Sdk pythonSdk = SdkConfigurationUtil.createAndAddSDK(pythonSdkModelData.pythonExec, PythonSdkType.getInstance())
+
+                        SdkModificator sdkModifier = pythonSdk.getSdkModificator()
+                        if (pythonSdkModelData.name != null) {
+                            sdkModifier.setName(pythonSdkModelData.name)
+                        }
+                        for (String additionalPath in pythonSdkModelData.getAdditionalPaths()) {
+                            if (new File(additionalPath).exists()) {
+                                sdkModifier.addRoot(LocalFileSystem.getInstance().findFileByIoFile(new File(additionalPath)), OrderRootType.CLASSES)
+                            }
+                        }
+                        sdkModifier.commitChanges()
                     }
-                    for(String additionalPath in pythonSdkModelData.getAdditionalPaths()) {
-                        sdkModifier.addRoot(LocalFileSystem.getInstance().findFileByIoFile(new File(additionalPath)), OrderRootType.CLASSES)
+                    else {
+                        //TODO: Log something?
                     }
-                    sdkModifier.commitChanges()
                 }
             })
         }

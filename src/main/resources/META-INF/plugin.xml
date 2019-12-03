@@ -20,9 +20,9 @@
     <name>PyFusion</name>
     <vendor email="See github" url="https://github.com/cjsimpson/pyGradleConfig">Chris Simpson</vendor>
     <description>Support for Configuring Python via Gradle</description>
-    <idea-version since-build="2018.1"/>
+    <idea-version since-build="2019.3"/>
 
-    <depends>org.jetbrains.plugins.gradle</depends>
+    <depends>com.intellij.gradle</depends>
     <depends>com.intellij.modules.python</depends>
 
     <extensions defaultExtensionNs="org.jetbrains.plugins.gradle">

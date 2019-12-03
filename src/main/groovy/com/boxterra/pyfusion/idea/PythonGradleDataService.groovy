@@ -38,6 +38,7 @@ import com.jetbrains.python.facet.PythonFacet
 import com.jetbrains.python.facet.PythonFacetConfiguration
 import com.jetbrains.python.facet.PythonFacetType
 import com.jetbrains.python.sdk.PythonSdkType
+import com.jetbrains.python.sdk.PythonSdkUtil
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 import org.jetbrains.plugins.gradle.model.data.GradleSourceSetData
@@ -79,7 +80,7 @@ class PythonGradleDataService extends AbstractProjectDataService<PythonModelData
             Library sdkLibrary
             Sdk pySdk
             if (sdk != null) {
-                pySdk = PythonSdkType.findSdkByKey(sdk)
+                pySdk = PythonSdkUtil.findSdkByKey(sdk)
                 sdkLibrary = LibraryTablesRegistrar.getInstance().getLibraryTable().getLibraryByName(sdk + " interpreter library")
                 if (sdkLibrary == null || pySdk == null) {
                     Notification notification = new Notification("Python Gradle Plugin",
@@ -94,7 +95,7 @@ class PythonGradleDataService extends AbstractProjectDataService<PythonModelData
 
                 // Remove any existing Python SDK library dependencies
                 List<Library> libraries = Arrays.asList(modelsProvider.getModifiableRootModel(ideModule).getModuleLibraryTable().getLibraries())
-                for (Sdk s : PythonSdkType.getAllSdks()) {
+                for (Sdk s : PythonSdkUtil.getAllSdks()) {
                     Library lib = LibraryTablesRegistrar.getInstance().getLibraryTable().getLibraryByName(s.getName() + " interpreter library")
                     if (lib != null && libraries.contains(lib)) {
                         modelsProvider.getModifiableRootModel(ideModule).getModuleLibraryTable().removeLibrary(lib)

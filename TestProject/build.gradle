@@ -29,7 +29,7 @@ apply plugin: 'com.boxterra.pyfusion'
 apply plugin: 'java'
 
 pythonSdk {
-    pythonExec = '/usr/local/bin/python3'
+    pythonExec = '/usr/bin/python3'
     name = 'py_test'
     additionalPaths = ['/some/path/pyFusion']
 }
