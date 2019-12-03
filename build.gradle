@@ -20,7 +20,7 @@ plugins {
 }
 
 group = 'pyFusion'
-version = '2018.08.25'
+version = '2019.12.02'
 
 apply plugin: 'groovy'
 
